@@ -4,6 +4,7 @@ const reducer = require('../reducer/userSignupReducer')
 const jwtHelper = require('../jwtHelper/jwtControl')
 
 module.exports = {
+    // for user sign-up
     userSignup: (data) => {
         return new Promise(async (resolve, rejects) => {
             var userDetail = null;
@@ -35,5 +36,27 @@ module.exports = {
                 reject({ status: false })
             }
         })
+    },
+    // for user login
+    userLogin:(data)=>{
+        return new Promise(async(resolve,reject)=>{
+            var fetchData = await db.get().collection(userCollection.USER_COLLECTION).findOne({userName:data.userName})
+            if(fetchData){
+                console.log(fetchData.password,data.password);
+                if(fetchData.password==data.password){
+                    let currentData = await reducer.jwtLogin(fetchData) // password include user full details
+                   var jwt = await jwtHelper.Login(currentData)
+                   var resolveData = await reducer.loginReducer(jwt,currentData.userId,currentData.userName)
+                    resolve(resolveData)
+                }else{
+                    reject({passwordError:false})
+                }
+            }else{
+                reject({userNameError:false})
+            }
+
+
+        })
+
     }
 }

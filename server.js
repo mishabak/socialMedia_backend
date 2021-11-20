@@ -12,7 +12,7 @@ app.use(cors())
 
 db.connect((err)=>{
     if(err){
-        console.log(err)
+        console.log(err,'sdfsd')
     }else{
         console.log("database connected")
     }

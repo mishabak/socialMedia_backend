@@ -5,6 +5,10 @@ module.exports = {
     SignUp: async (data) => {
         const token = await jwt.sign({ data }, SECRET_KEY, { expiresIn: maxAge })
         return token;
+    },
+    Login: async(data)=>{
+        const token = await jwt.sign({data},SECRET_KEY,{expiresIn:maxAge})
+        return token;
     }
 
 }

@@ -23,5 +23,18 @@ module.exports = {
         data.userId = userId
         data.userName = userName
         return data;
+    },
+    jwtLogin:(data)=>{
+        let details = {};
+        details.userId = data._id;
+        details.userName = data.userName;
+        return details;
+    },
+    loginReducer:(token,userId,userName)=>{
+        let data ={}
+        data.token = token;
+        data.userId = userId;
+        data.userName = userName;
+        return data;
     }
 }
